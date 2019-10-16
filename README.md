@@ -2,13 +2,13 @@
 
     $git checkout master // wechselt auf den master branch
 
-    $git pull / $git oull oriign master  // holt sich den nuesten stand vom     master branch
+    $git pull / $git pull orign master  // holt sich den neusten stand vom master branch
 
 ## Branchwechsel zeugs
 
     $git checkout <branchname> // wechselt auf den <branchnamen> branch
 
-    $git checkout -b <branchname> // erstelltund wechselt auf einen neuen branch mit dem stand vom von dem vorherigen
+    $git checkout -b <branchname> // erstellt und wechselt auf einen neuen branch mit dem stand vom von dem vorherigen
 
 ## Commit zeugs
 
