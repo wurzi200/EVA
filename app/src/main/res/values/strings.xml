@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">EVA</string>
+    <string name="main_header">Kommst du zum Event ?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="maybe">Maybe</string>
 </resources>
