@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "922076582298",
+    "firebase_url": "https://ieva-59743.firebaseio.com",
+    "project_id": "ieva-59743",
+    "storage_bucket": "ieva-59743.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:922076582298:android:72a70032dc8d9ce6bcaa23",
+        "android_client_info": {
+          "package_name": "com.example.eva"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "922076582298-q6bbohth53acjh058hov1fsr7bef0ejl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.eva",
+            "certificate_hash": "28cfbf9636982d8f5aaa46dd11a983f52c91ee3c"
+          }
+        },
+        {
+          "client_id": "922076582298-98rni9fh82v1upeghp7guc1f0ite9sm5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2WWzY14g3pSOJ6_9I8ITLo8pwkgGIFec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "922076582298-98rni9fh82v1upeghp7guc1f0ite9sm5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
