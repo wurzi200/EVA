@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#A3FFFFFF"
-    tools:context=".Test">
+    tools:context=".Change_Color_Activity">
 
     <TextView
         android:id="@+id/textView"
@@ -78,7 +78,6 @@
         android:layout_width="169dp"
         android:layout_height="92dp"
         android:layout_marginTop="32dp"
-        android:text="Status"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
