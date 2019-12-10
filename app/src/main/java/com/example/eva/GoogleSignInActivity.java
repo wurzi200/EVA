@@ -48,7 +48,7 @@ public class GoogleSignInActivity extends AppCompatActivity implements
         Intent intent = getIntent();
         // Views
 
-        TextView mStatusTextView = findViewById(R.id.status);
+        //TextView mStatusTextView = findViewById(R.id.status);
        // mDetailTextView = findViewById(R.id.detail);
 
         // Button listeners
