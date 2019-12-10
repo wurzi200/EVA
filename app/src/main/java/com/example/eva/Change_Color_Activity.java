@@ -44,7 +44,7 @@ public class Change_Color_Activity extends AppCompatActivity {
 
     public void changeColor(View view) {
         String state = view.getTag().toString();
-
+    
         int color_id = ContextCompat.getColor(view.getContext(), R.color.colorPrimaryDark);
         switch(state) {
             case "yes" :
