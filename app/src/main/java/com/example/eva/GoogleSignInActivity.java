@@ -54,7 +54,7 @@ public class GoogleSignInActivity extends AppCompatActivity implements
         // Button listeners
 
         findViewById(R.id.signInButton).setOnClickListener(this);
-        findViewById(R.id.signOutButton).setOnClickListener(this);
+        //findViewById(R.id.signOutButton).setOnClickListener(this);
 
 
 
@@ -178,7 +178,7 @@ public class GoogleSignInActivity extends AppCompatActivity implements
 
     // [END signin]
 
-    private void signOut() {
+    /*private void signOut() {
 
         // Firebase sign out
         mAuth.signOut();
@@ -194,7 +194,7 @@ public class GoogleSignInActivity extends AppCompatActivity implements
 
                 });
 
-    }
+    }*/
 
 
 
@@ -225,16 +225,16 @@ public class GoogleSignInActivity extends AppCompatActivity implements
 
             signIn();
 
-        } else if (i == R.id.signOutButton) {
+        } /*else if (i == R.id.signOutButton) {
 
             signOut();
 
-        }
+        }*/
 
     }
 
     private void startActivity(){
-        Intent intent = new Intent(this, Change_Color_Activity.class);
+        Intent intent = new Intent(this, Overview_Activity.class);
         startActivity(intent);
     }
 

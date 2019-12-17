@@ -4,4 +4,8 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="maybe">Maybe</string>
+    <string name="login">LogIn</string>
+    <string name="logout">LogOut</string>
+    <string name="menu">Menu</string>
+    <string name="add">+</string>
 </resources>
