@@ -14,9 +14,8 @@
         android:id="@+id/eventDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autoText="true"
         android:ems="10"
-        android:inputType="date" />
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/eventLocation"

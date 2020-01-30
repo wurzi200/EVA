@@ -18,7 +18,7 @@ public class Event implements Serializable {
     //private
     private int _eventId;
     private String _eventName;
-    private Date _eventDate;
+    private String _eventDate;
     private String _eventLocation;
     public List<FirebaseUser> InvitedIDs;
 
@@ -26,13 +26,13 @@ public class Event implements Serializable {
     //Constructors
     public Event(){
         this._eventId = -1;
-        this.SetEventDate(new Date());
+        this.SetEventDate("");
         this.SetEventName("");
         this.SetEventLocation("");
         this.InvitedIDs = new ArrayList<FirebaseUser>();
     }
 
-    public Event(int id, String name, String location, Date date, List<FirebaseUser> invitedIDs){
+    public Event(int id, String name, String location, String date, List<FirebaseUser> invitedIDs){
         this.SetEventId(id);
         this.SetEventDate(date);
         this.SetEventName(name);
@@ -58,11 +58,11 @@ public class Event implements Serializable {
         this._eventName = eventName;
     }
 
-    public Date GetEventDate() {
+    public String GetEventDate() {
         return _eventDate;
     }
 
-    public void SetEventDate(Date eventDate) {
+    public void SetEventDate(String eventDate) {
         this._eventDate = eventDate;
     }
 
@@ -76,17 +76,6 @@ public class Event implements Serializable {
 
 
     //Public methods
-    public String toString(){
-        if(isValid())
-        {
-            return this._eventName + " " + this._eventDate.getDay() + " " + this._eventDate.getMonth();
-        }
-        else
-        {
-            return "Faulty Event!!!";
-        }
-    }
-
     public Boolean isValid(){
         if(this.GetEventId() < 0)
         {
@@ -98,7 +87,7 @@ public class Event implements Serializable {
             return false;
         }
 
-        if(this.GetEventDate().before(new Date()))
+        if(this.GetEventDate().isEmpty())
         {
             return false;
         }

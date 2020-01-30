@@ -2,6 +2,7 @@ package com.example.eva;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -33,7 +34,6 @@ public class CreateEvent_Activity extends AppCompatActivity implements View.OnCl
     private DatabaseReference _dbReference = _database.getReference("state");
     private Event _event;
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eventdetailview);
@@ -41,6 +41,7 @@ public class CreateEvent_Activity extends AppCompatActivity implements View.OnCl
         int eventId = (int)getIntent().getSerializableExtra("Extra");
         //Event eventToAlter = (Event) _dbReference.get;
         Event eventToAlter;
+
         if(eventId > -1)
         {
             //eventToAlter = (Event) _dbReference.get
@@ -85,21 +86,15 @@ public class CreateEvent_Activity extends AppCompatActivity implements View.OnCl
 
         int i = v.getId();
 
-
         if (i == R.id.btnSaveEvent) {
             EditText editTextName = (EditText)findViewById(R.id.eventName);
             String name = editTextName.getText().toString();
+
             EditText editTextLocation = (EditText)findViewById(R.id.eventLocation);
             String location = editTextLocation.getText().toString();
+
             EditText editTextDate = (EditText)findViewById(R.id.eventDate);
-            SimpleDateFormat df = new SimpleDateFormat("dd-MM-YYYY");
-            Date date = new java.util.Date();
-            try{
-                date = (Date)df.parse(editTextDate.getText().toString());
-            }
-            catch (ParseException e) {
-                e.printStackTrace();
-            }
+            String date = editTextDate.getText().toString();
 
             _event.SetEventName(name);
             _event.SetEventLocation(location);
@@ -110,7 +105,6 @@ public class CreateEvent_Activity extends AppCompatActivity implements View.OnCl
                 _dbReference.setValue(_event);
                 startActivity();
             }
-
         }
 
         if(i == R.id.btnCancelEvent){
@@ -118,31 +112,28 @@ public class CreateEvent_Activity extends AppCompatActivity implements View.OnCl
         }
 
         if(i == R.id.btnResetFields){
-            EditText editTextName = (EditText)findViewById(R.id.eventName);
-            editTextName.setText("");
-            EditText editTextLocation = (EditText)findViewById(R.id.eventLocation);
-            editTextLocation.setText("");
-            EditText editTextDate = (EditText)findViewById(R.id.eventDate);
-            editTextDate.setText("");
-            //reset Invited to only creator
+            resetFields();
         }
-
     }
 
     private void resetFields(){
+        EditText editTextName = (EditText)findViewById(R.id.eventName);
+        editTextName.setText("");
 
+        EditText editTextLocation = (EditText)findViewById(R.id.eventLocation);
+        editTextLocation.setText("");
+
+        EditText editTextDate = (EditText)findViewById(R.id.eventDate);
+        editTextDate.setText("");
     }
 
     private void addEvent(){
         //read values from textboxes
 
         //this._dbReference.setValue();
-
     }
 
     private void alterEvent(){
-
-
     }
 
     private void startActivity(){
