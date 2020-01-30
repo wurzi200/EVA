@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/eventName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Event Name"
         android:inputType="textPersonName" />
 
     <EditText
@@ -15,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Date"
         android:inputType="textPersonName" />
 
     <EditText
@@ -22,31 +25,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Location"
         android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/btnSaveEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save Event"
-        android:onClick="onClick"/>
+        android:onClick="onClick"
+        android:text="Save Event" />
 
     <Button
         android:id="@+id/btnCancelEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cancel"
-        android:onClick="onClick"/>
+        android:onClick="onClick"
+        android:text="Cancel" />
 
     <Button
         android:id="@+id/btnResetFields"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Reset Input"
-        android:onClick="onClick"/>
+        android:onClick="onClick"
+        android:text="Reset Input" />
 
     <ListView
         android:id="@+id/invitedListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 </LinearLayout>
