@@ -14,10 +14,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class Overview_Activity extends AppCompatActivity implements
+import java.io.Serializable;
 
-    View.OnClickListener {
+public class Overview_Activity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
@@ -62,17 +64,32 @@ public class Overview_Activity extends AppCompatActivity implements
 
         int i = v.getId();
 
-        if (i == R.id.signOutButton) {
 
-            signOut();
-            startActivity();
+        if(i == R.id.add_event){
+            startActivity(CreateEvent_Activity.class, -1);
 
         }
 
+        if (i == R.id.signOutButton) {
+
+            signOut();
+            startActivity(GoogleSignInActivity.class, "");
+
+        }
+
+
+        /*
+        if(i == R.id.alter_event){
+            Event selectedEvent = new Event();
+            //selectedEvent = v.GetContext(event);
+            startActivity(CreateEvent_Activity.class, selectedEvent.GetId);
+        }
+        */
     }
 
-    private void startActivity(){
-        Intent intent = new Intent(this, GoogleSignInActivity.class);
+    private void startActivity(Class targetActivity, Serializable extra){
+        Intent intent = new Intent(this, targetActivity);
+        intent.putExtra("Extra", extra);
         startActivity(intent);
     }
 }
