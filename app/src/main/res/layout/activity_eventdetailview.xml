@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/eventName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/eventDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoText="true"
+        android:ems="10"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/eventLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/btnSaveEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Event"
+        android:onClick="onClick"/>
+
+    <Button
+        android:id="@+id/btnCancelEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:onClick="onClick"/>
+
+    <Button
+        android:id="@+id/btnResetFields"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reset Input"
+        android:onClick="onClick"/>
+
+    <ListView
+        android:id="@+id/invitedListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

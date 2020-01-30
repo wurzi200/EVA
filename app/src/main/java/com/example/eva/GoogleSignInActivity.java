@@ -23,9 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 
-public class GoogleSignInActivity extends AppCompatActivity implements
-
-        View.OnClickListener {
+public class GoogleSignInActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
