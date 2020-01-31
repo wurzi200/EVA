@@ -25,13 +25,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CreateEvent_Activity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseDatabase _database = FirebaseDatabase.getInstance();
-    private DatabaseReference _dbReference = _database.getReference("state");
+    private DatabaseReference _dbReference = _database.getReference();
     private Event _event;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +62,7 @@ public class CreateEvent_Activity extends AppCompatActivity implements View.OnCl
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        if (eventToAlter.GetEventId() == -1)
+        if (eventToAlter.GetEventId() == "")
         {
             this._event = new Event();
         }
@@ -102,7 +104,13 @@ public class CreateEvent_Activity extends AppCompatActivity implements View.OnCl
 
             if(_event.isValid())
             {
-                _dbReference.setValue(_event);
+                String key = _dbReference.child("events").push().getKey();
+                Map<String, Object> postValues = _event.toMap();
+
+                Map<String, Object> childUpdates = new HashMap<>();
+                childUpdates.put("/events/" + key, postValues);
+
+                _dbReference.updateChildren(childUpdates);
                 startActivity();
             }
         }

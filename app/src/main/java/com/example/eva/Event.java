@@ -4,19 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.Exclude;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.Map;
 
 public class Event implements Serializable {
 
     //private
-    private int _eventId;
+    private String _eventId;
     private String _eventName;
     private String _eventDate;
     private String _eventLocation;
@@ -25,14 +28,14 @@ public class Event implements Serializable {
 
     //Constructors
     public Event(){
-        this._eventId = -1;
+        this._eventId = "";
         this.SetEventDate("");
         this.SetEventName("");
         this.SetEventLocation("");
         this.InvitedIDs = new ArrayList<FirebaseUser>();
     }
 
-    public Event(int id, String name, String location, String date, List<FirebaseUser> invitedIDs){
+    public Event(String id, String name, String location, String date, List<FirebaseUser> invitedIDs){
         this.SetEventId(id);
         this.SetEventDate(date);
         this.SetEventName(name);
@@ -40,13 +43,23 @@ public class Event implements Serializable {
         this.InvitedIDs = invitedIDs;
     }
 
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("_eventId", _eventId);
+        result.put("_eventName", _eventName);
+        result.put("_eventDate", _eventDate);
+        result.put("_eventLocation", _eventLocation);
+
+        return result;
+    }
 
     //Getters and Setters
-    public int GetEventId(){
+    public String GetEventId(){
         return _eventId;
     }
 
-    private void SetEventId(int id){
+    public void SetEventId(String id){
         this._eventId = id;
     }
 
@@ -77,11 +90,6 @@ public class Event implements Serializable {
 
     //Public methods
     public Boolean isValid(){
-        if(this.GetEventId() < 0)
-        {
-            return false;
-        }
-
         if(this.GetEventName().isEmpty())
         {
             return false;
