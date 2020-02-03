@@ -1,106 +1,136 @@
 package com.example.eva;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.Exclude;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.ListIterator;
 import java.util.Map;
 
 public class Event implements Serializable {
 
     //private
-    private String _eventId;
-    private String _eventName;
-    private String _eventDate;
-    private String _eventLocation;
-    public List<FirebaseUser> InvitedIDs;
+    private String eventId;
+    //private String _creatorId;
+    private String eventName;
+    private String eventDate;
+    private String eventLocation;
+    public List<String> InvitedIDs;
+
+    @Exclude
+    public List<User> InvitedUsers;
 
 
     //Constructors
     public Event(){
-        this._eventId = "";
-        this.SetEventDate("");
-        this.SetEventName("");
-        this.SetEventLocation("");
-        this.InvitedIDs = new ArrayList<FirebaseUser>();
+        this.eventId = "";
+        this.setEventDate("");
+        this.setEventName("");
+        this.setEventLocation("");
+
+        this.InvitedUsers = new ArrayList<User>();
+        this.InvitedIDs = new ArrayList<String>();
     }
 
-    public Event(String id, String name, String location, String date, List<FirebaseUser> invitedIDs){
-        this.SetEventId(id);
-        this.SetEventDate(date);
-        this.SetEventName(name);
-        this.SetEventLocation(location);
-        this.InvitedIDs = invitedIDs;
+    public Event(String eventDate, String eventLocation, String eventName){
+        this.eventDate = eventDate;
+        this.eventLocation = eventLocation;
+        this.eventName = eventName;
+    }
+
+    public Event(String creator, String id, String name, String location, String date, List<User> invitedUsers){
+        //this._creatorId = creator;
+        this.setEventId(id);
+        this.setEventDate(date);
+        this.setEventName(name);
+        this.setEventLocation(location);
+
+        //should never be empty, as the current user is added
+        if(!invitedUsers.isEmpty()) {
+            for (User user : invitedUsers){
+                InvitedIDs.add(user.GetId());
+            }
+        }
+
+        this.InvitedUsers = invitedUsers;
     }
 
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("_eventId", _eventId);
-        result.put("_eventName", _eventName);
-        result.put("_eventDate", _eventDate);
-        result.put("_eventLocation", _eventLocation);
+        result.put("eventId", eventId);
+        result.put("eventName", eventName);
+        result.put("eventDate", eventDate);
+        result.put("eventLocation", eventLocation);
+
+        InvitedIDs.clear();
+        for (User user: InvitedUsers) {
+            InvitedIDs.add(user.GetId());
+        }
+        result.put("InvitedIDs", InvitedIDs);
 
         return result;
     }
 
     //Getters and Setters
-    public String GetEventId(){
-        return _eventId;
+    public String getEventId(){
+        return eventId;
     }
 
-    public void SetEventId(String id){
-        this._eventId = id;
+    public void setEventId(String id){
+        this.eventId = id;
     }
 
-    public String GetEventName() {
-        return _eventName;
+    /*
+    public String GetCreatorId(){
+        return _creatorId;
+    }
+     */
+
+    public String getEventName() {
+        return eventName;
     }
 
-    public void SetEventName(String eventName) {
-        this._eventName = eventName;
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
-    public String GetEventDate() {
-        return _eventDate;
+    public String getEventDate() {
+        return eventDate;
     }
 
-    public void SetEventDate(String eventDate) {
-        this._eventDate = eventDate;
+    public void setEventDate(String eventDate) {
+        this.eventDate = eventDate;
     }
 
-    public String GetEventLocation() {
-        return _eventLocation;
+    public String getEventLocation() {
+        return eventLocation;
     }
 
-    public void SetEventLocation(String eventLocation) {
-        this._eventLocation = eventLocation;
+    public void setEventLocation(String eventLocation) {
+        this.eventLocation = eventLocation;
+    }
+
+    @Override
+    public String toString(){
+        return this.eventName + " " + this.eventDate;
     }
 
 
     //Public methods
     public Boolean isValid(){
-        if(this.GetEventName().isEmpty())
+        if(this.getEventName().isEmpty())
         {
             return false;
         }
 
-        if(this.GetEventDate().isEmpty())
+        if(this.getEventDate().isEmpty())
         {
             return false;
         }
 
-        if(this.GetEventLocation().isEmpty())
+        if(this.getEventLocation().isEmpty())
         {
             return false;
         }

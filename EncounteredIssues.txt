@@ -1,3 +1,10 @@
 Uncaught exception in Firebase Database runloop (3.0.0)
 	-> build.gradle (Module: app) -> dependencies -> implementation 'com.google.firebase:firebase-database:18.0.1' (Increased version number)
 
+SHA1-key necessity for each development-device
+
+Android Phone only recognizing one device as development-PC
+
+Enforced code convention for getters/setters -> reading data from firebase
+
+

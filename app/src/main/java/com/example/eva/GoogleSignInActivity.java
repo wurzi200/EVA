@@ -21,6 +21,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class GoogleSignInActivity extends AppCompatActivity implements View.OnClickListener {
@@ -28,8 +33,11 @@ public class GoogleSignInActivity extends AppCompatActivity implements View.OnCl
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
 
+    private FirebaseDatabase _database = FirebaseDatabase.getInstance();
+    private DatabaseReference _dbReference = _database.getReference();
     // [START declare_auth]
     private FirebaseAuth mAuth;
+    private String googleID;
     // [END declare_auth]
 
 
@@ -44,6 +52,7 @@ public class GoogleSignInActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         Intent intent = getIntent();
+
         // Views
 
         //TextView mStatusTextView = findViewById(R.id.status);
@@ -85,7 +94,6 @@ public class GoogleSignInActivity extends AppCompatActivity implements View.OnCl
     // [END on_start_check_user]
 
     // [START onactivityresult]
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -124,6 +132,7 @@ public class GoogleSignInActivity extends AppCompatActivity implements View.OnCl
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
 
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+        googleID = acct.getId();
         // [START_EXCLUDE silent]
 
         // [END_EXCLUDE]
@@ -146,7 +155,13 @@ public class GoogleSignInActivity extends AppCompatActivity implements View.OnCl
 
                             Log.d(TAG, "signInWithCredential:success");
 
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            User user = new User(mAuth.getCurrentUser());
+                            String key = user.GetId();
+                            Map<String, Object> postValues = user.toMap();
+                            Map<String, Object> childUpdates = new HashMap<>();
+                            childUpdates.put("/users/" + key, postValues);
+                            _dbReference.updateChildren(childUpdates);
+
                             startActivity();
 
                         } else {
@@ -233,6 +248,7 @@ public class GoogleSignInActivity extends AppCompatActivity implements View.OnCl
 
     private void startActivity(){
         Intent intent = new Intent(this, Overview_Activity.class);
+        intent.putExtra("Extra", googleID);
         startActivity(intent);
     }
 
