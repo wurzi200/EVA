@@ -2,10 +2,12 @@ package com.example.eva;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import java.util.List;
 
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -52,6 +54,16 @@ public class Overview_Activity extends AppCompatActivity implements View.OnClick
         _listView = (ListView)findViewById(R.id.event_list);
         _stringArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, _eventStrings);
         _listView.setAdapter(_stringArrayAdapter);
+
+        _listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(Overview_Activity.this, Event_Detail_Activity.class);
+                intent.putExtra("Event", (Parcelable) _events.get(position));
+                startActivity(intent);
+            }
+        });
+
         _dbReference.child("events").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -66,6 +78,7 @@ public class Overview_Activity extends AppCompatActivity implements View.OnClick
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
 
             }
 

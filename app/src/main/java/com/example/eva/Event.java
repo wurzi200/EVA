@@ -1,5 +1,8 @@
 package com.example.eva;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.database.Exclude;
 
 import java.io.Serializable;
@@ -8,7 +11,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Event implements Serializable {
+public class Event implements Serializable, Parcelable {
 
     //private
     private String eventId;
@@ -55,6 +58,26 @@ public class Event implements Serializable {
 
         this.InvitedUsers = invitedUsers;
     }
+
+    protected Event(Parcel in) {
+        eventId = in.readString();
+        eventName = in.readString();
+        eventDate = in.readString();
+        eventLocation = in.readString();
+        InvitedIDs = in.createStringArrayList();
+    }
+
+    public static final Creator<Event> CREATOR = new Creator<Event>() {
+        @Override
+        public Event createFromParcel(Parcel in) {
+            return new Event(in);
+        }
+
+        @Override
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+    };
 
     @Exclude
     public Map<String, Object> toMap() {
@@ -137,5 +160,19 @@ public class Event implements Serializable {
 
         else
             return true;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(eventId);
+        dest.writeString(eventName);
+        dest.writeString(eventDate);
+        dest.writeString(eventLocation);
+        dest.writeStringList(InvitedIDs);
     }
 }
