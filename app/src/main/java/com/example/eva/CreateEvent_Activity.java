@@ -7,24 +7,17 @@ import android.view.View;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,21 +32,7 @@ public class CreateEvent_Activity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eventdetailview);
-        mAuth = FirebaseAuth.getInstance();
-        int eventId = (int)getIntent().getSerializableExtra("Extra");
-        //Event eventToAlter = (Event) _dbReference.get;
-        Event eventToAlter;
 
-        if(eventId > -1)
-        {
-            //eventToAlter = (Event) _dbReference.get
-            //eventToAlter = new Event(eventId, String name, String location, Date date, List<FirebaseUser> invitedIDs);
-            eventToAlter = new Event();
-        }
-        else
-        {
-            eventToAlter = new Event();
-        }
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -61,15 +40,34 @@ public class CreateEvent_Activity extends AppCompatActivity implements View.OnCl
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mAuth = FirebaseAuth.getInstance();
 
-        if (eventToAlter.GetEventId() == "")
+        final String eventId = (String)getIntent().getSerializableExtra("Extra");
+        String googleUserID = (String)getIntent().getSerializableExtra("GoogleUserID");
+        Log.w("EventID", eventId);
+
+        //Event eventToAlter = (Event) _dbReference.get;
+        if(!eventId.isEmpty())
         {
-            this._event = new Event();
+            _dbReference.child("events").child(eventId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Event eventToAlter = dataSnapshot.getValue(Event.class);
+                    _event = eventToAlter;
+                }
+
+                @Override
+                public void onCancelled(DatabaseError dbError) {
+                    Log.w("Read operation failed:", "Reading event " +eventId+ " from database");
+                }
+            });
         }
+
         else
         {
-            this._event = eventToAlter;
+            _event = new Event();
         }
+
     }
 
     // [START on_start_check_user]
@@ -78,8 +76,8 @@ public class CreateEvent_Activity extends AppCompatActivity implements View.OnCl
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        _event.InvitedIDs.add(currentUser);
+        User currentUser = new User(mAuth.getCurrentUser());
+        _event.InvitedUsers.add(currentUser);
     }
 
     // [END on_start_check_user]
@@ -98,15 +96,19 @@ public class CreateEvent_Activity extends AppCompatActivity implements View.OnCl
             EditText editTextDate = (EditText)findViewById(R.id.eventDate);
             String date = editTextDate.getText().toString();
 
-            _event.SetEventName(name);
-            _event.SetEventLocation(location);
-            _event.SetEventDate(date);
+            _event.setEventName(name);
+            _event.setEventLocation(location);
+            _event.setEventDate(date);
+
+            User currentUser = new User(mAuth.getCurrentUser());
+            _event.InvitedUsers.add(currentUser);
+
 
             if(_event.isValid())
             {
                 String key = _dbReference.child("events").push().getKey();
+                _event.setEventId(key);
                 Map<String, Object> postValues = _event.toMap();
-
                 Map<String, Object> childUpdates = new HashMap<>();
                 childUpdates.put("/events/" + key, postValues);
 
