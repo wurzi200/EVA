@@ -15,7 +15,7 @@ public class Event implements Serializable, Parcelable {
 
     //private
     private String eventId;
-    //private String _creatorId;
+    private String creatorId;
     private String eventName;
     private String eventDate;
     private String eventLocation;
@@ -42,8 +42,8 @@ public class Event implements Serializable, Parcelable {
         this.eventName = eventName;
     }
 
-    public Event(String creator, String id, String name, String location, String date, List<User> invitedUsers){
-        //this._creatorId = creator;
+    public Event(String creatorId, String id, String name, String location, String date, List<User> invitedUsers){
+        this.setCreatorId(creatorId);
         this.setEventId(id);
         this.setEventDate(date);
         this.setEventName(name);
@@ -61,6 +61,7 @@ public class Event implements Serializable, Parcelable {
 
     protected Event(Parcel in) {
         eventId = in.readString();
+        creatorId = in.readString();
         eventName = in.readString();
         eventDate = in.readString();
         eventLocation = in.readString();
@@ -83,6 +84,7 @@ public class Event implements Serializable, Parcelable {
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("eventId", eventId);
+        result.put("creatorId", creatorId);
         result.put("eventName", eventName);
         result.put("eventDate", eventDate);
         result.put("eventLocation", eventLocation);
@@ -110,6 +112,13 @@ public class Event implements Serializable, Parcelable {
         return _creatorId;
     }
      */
+    public String getCreatorId(){
+        return creatorId;
+    }
+
+    public void setCreatorId(String creatorId){
+        this.creatorId = creatorId;
+    }
 
     public String getEventName() {
         return eventName;
@@ -143,6 +152,12 @@ public class Event implements Serializable, Parcelable {
 
     //Public methods
     public Boolean isValid(){
+
+        if(this.getCreatorId().isEmpty())
+        {
+            return false;
+        }
+
         if(this.getEventName().isEmpty())
         {
             return false;
@@ -170,6 +185,7 @@ public class Event implements Serializable, Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(eventId);
+        dest.writeString(creatorId);
         dest.writeString(eventName);
         dest.writeString(eventDate);
         dest.writeString(eventLocation);

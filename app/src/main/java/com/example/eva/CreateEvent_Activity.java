@@ -43,7 +43,6 @@ public class CreateEvent_Activity extends AppCompatActivity implements View.OnCl
         mAuth = FirebaseAuth.getInstance();
 
         final String eventId = (String)getIntent().getSerializableExtra("Extra");
-        String googleUserID = (String)getIntent().getSerializableExtra("GoogleUserID");
         Log.w("EventID", eventId);
 
         //Event eventToAlter = (Event) _dbReference.get;
@@ -92,15 +91,16 @@ public class CreateEvent_Activity extends AppCompatActivity implements View.OnCl
 
             EditText editTextLocation = (EditText)findViewById(R.id.eventLocation);
             String location = editTextLocation.getText().toString();
-
             EditText editTextDate = (EditText)findViewById(R.id.eventDate);
             String date = editTextDate.getText().toString();
+            String currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            User currentUser = new User(mAuth.getCurrentUser());
 
             _event.setEventName(name);
             _event.setEventLocation(location);
             _event.setEventDate(date);
-
-            User currentUser = new User(mAuth.getCurrentUser());
+            _event.setCreatorId(currentFirebaseUser);
             _event.InvitedUsers.add(currentUser);
 
 
