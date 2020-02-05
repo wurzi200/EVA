@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,7 +33,7 @@ import androidx.appcompat.app.AppCompatActivity;
             TextView detailEventDate= (TextView)findViewById(R.id.event_detail_date);
             detailEventDate.setText(date);
 
-            Button cancelButton = (Button)findViewById(R.id.btnCancelEvent);
+            ImageView cancelButton = (ImageView)findViewById(R.id.btnCancelEvent);
             cancelButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -15,37 +15,10 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.566"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.159" />
-
-    <TextView
-        android:id="@+id/detail_description"
-        android:layout_width="117dp"
-        android:layout_height="24dp"
-        android:text="Name:"
-        android:textAlignment="textStart"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/event_detail_name"
-        app:layout_constraintEnd_toStartOf="@+id/event_detail_name"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/event_detail_name"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/detail_description3"
-        android:layout_width="117dp"
-        android:layout_height="27dp"
-        android:text="Date:"
-        android:textAlignment="textStart"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/event_detail_date"
-        app:layout_constraintEnd_toStartOf="@+id/event_detail_date"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/event_detail_date"
-        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/detail_description2"
@@ -56,23 +29,10 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/event_detail_location"
         app:layout_constraintEnd_toStartOf="@+id/event_detail_location"
-        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintHorizontal_bias="0.756"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/event_detail_location"
         app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/event_detail_location"
-        android:layout_width="139dp"
-        android:layout_height="38dp"
-        android:text="Location"
-        android:textAlignment="textStart"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.258" />
 
     <TextView
         android:id="@+id/event_detail_date"
@@ -83,19 +43,64 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.566"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.357" />
 
-    <Button
-        android:id="@+id/btnCancelEvent"
-        android:layout_width="115dp"
-        android:layout_height="42dp"
-        android:text="Cancel"
+    <TextView
+        android:id="@+id/event_detail_location"
+        android:layout_width="139dp"
+        android:layout_height="38dp"
+        android:text="Location"
+        android:textAlignment="textStart"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintHorizontal_bias="0.566"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.258" />
+
+    <TextView
+        android:id="@+id/detail_description3"
+        android:layout_width="117dp"
+        android:layout_height="27dp"
+        android:text="Date:"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/event_detail_date"
+        app:layout_constraintEnd_toStartOf="@+id/event_detail_date"
+        app:layout_constraintHorizontal_bias="0.756"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/event_detail_date"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/detail_description"
+        android:layout_width="117dp"
+        android:layout_height="24dp"
+        android:text="Name:"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/event_detail_name"
+        app:layout_constraintEnd_toStartOf="@+id/event_detail_name"
+        app:layout_constraintHorizontal_bias="0.756"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/event_detail_name"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/btnCancelEvent"
+        android:layout_width="56dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
 </androidx.constraintlayout.widget.ConstraintLayout>
