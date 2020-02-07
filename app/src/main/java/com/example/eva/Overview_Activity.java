@@ -96,11 +96,32 @@ public class Overview_Activity extends AppCompatActivity implements View.OnClick
 
                     String currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+
                     if(eventObject.getCreatorId().equals(currentFirebaseUser)) {
                         _events.add(eventObject);
                         _eventStrings.add(stringEvent);
                         _stringArrayAdapter.notifyDataSetChanged();
                         _listView.setAdapter(_stringArrayAdapter);
+                    }
+                    else
+                    {
+                        if(eventObject.InvitedIDs.isEmpty())
+                            Log.w("idsEmpty", " true");
+                        else if(eventObject.InvitedIDs.size() != 0)
+                            Log.w("count", "greater zero");
+
+                        for(String inv : eventObject.InvitedIDs)
+                        {
+                            if(inv != null && inv.equals(mAuth.getUid())){
+
+                                //Log.w("invited", "true");
+                                _events.add(eventObject);
+                                _eventStrings.add(stringEvent);
+                                _stringArrayAdapter.notifyDataSetChanged();
+                                _listView.setAdapter(_stringArrayAdapter);
+                            }
+
+                        }
                     }
                 }
             }
