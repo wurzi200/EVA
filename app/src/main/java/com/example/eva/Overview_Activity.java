@@ -45,6 +45,8 @@ public class Overview_Activity extends AppCompatActivity implements View.OnClick
     private ListView _listView;
     private String googleUserID;
 
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
@@ -64,40 +66,6 @@ public class Overview_Activity extends AppCompatActivity implements View.OnClick
             }
         });
 
-        _dbReference.child("events").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String stringEvent = dataSnapshot.getValue(Event.class).toString();
-                Event eventObject = dataSnapshot.getValue(Event.class);
-                _events.add(eventObject);
-                Log.w("ReceivedID", eventObject.getEventId());
-                //Log.w("eventCount", Integer.toString(_events.size()));
-                _eventStrings.add(stringEvent);
-                _stringArrayAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
         findViewById(R.id.signOutButton).setOnClickListener(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -109,6 +77,39 @@ public class Overview_Activity extends AppCompatActivity implements View.OnClick
 
 
         //Log.w("GoogleSignInClient", mGoogleSignInClient.getSignInIntent().get);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        _dbReference.child("events").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                _events.clear();
+                _eventStrings.clear();
+
+                for(DataSnapshot eventSnapshot: dataSnapshot.getChildren())
+                {
+                    String stringEvent = eventSnapshot.getValue(Event.class).toString();
+                    Event eventObject = eventSnapshot.getValue(Event.class);
+
+                    String currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                    if(eventObject.getCreatorId().equals(currentFirebaseUser)) {
+                        _events.add(eventObject);
+                        _eventStrings.add(stringEvent);
+                        _stringArrayAdapter.notifyDataSetChanged();
+                        _listView.setAdapter(_stringArrayAdapter);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void signOut() {

@@ -26,23 +26,23 @@ public class Event implements Serializable, Parcelable {
 
 
     //Constructors
-    public Event(){
+    public Event() {
         this.eventId = "";
         this.setEventDate("");
         this.setEventName("");
         this.setEventLocation("");
-
+        this.setCreatorId("");
         this.InvitedUsers = new ArrayList<User>();
         this.InvitedIDs = new ArrayList<String>();
     }
 
-    public Event(String eventDate, String eventLocation, String eventName){
+    public Event(String eventDate, String eventLocation, String eventName) {
         this.eventDate = eventDate;
         this.eventLocation = eventLocation;
         this.eventName = eventName;
     }
 
-    public Event(String creatorId, String id, String name, String location, String date, List<User> invitedUsers){
+    public Event(String creatorId, String id, String name, String location, String date, List<User> invitedUsers) {
         this.setCreatorId(creatorId);
         this.setEventId(id);
         this.setEventDate(date);
@@ -50,8 +50,8 @@ public class Event implements Serializable, Parcelable {
         this.setEventLocation(location);
 
         //should never be empty, as the current user is added
-        if(!invitedUsers.isEmpty()) {
-            for (User user : invitedUsers){
+        if (!invitedUsers.isEmpty()) {
+            for (User user : invitedUsers) {
                 InvitedIDs.add(user.GetId());
             }
         }
@@ -90,7 +90,7 @@ public class Event implements Serializable, Parcelable {
         result.put("eventLocation", eventLocation);
 
         InvitedIDs.clear();
-        for (User user: InvitedUsers) {
+        for (User user : InvitedUsers) {
             InvitedIDs.add(user.GetId());
         }
         result.put("InvitedIDs", InvitedIDs);
@@ -99,11 +99,11 @@ public class Event implements Serializable, Parcelable {
     }
 
     //Getters and Setters
-    public String getEventId(){
+    public String getEventId() {
         return eventId;
     }
 
-    public void setEventId(String id){
+    public void setEventId(String id) {
         this.eventId = id;
     }
 
@@ -112,11 +112,11 @@ public class Event implements Serializable, Parcelable {
         return _creatorId;
     }
      */
-    public String getCreatorId(){
+    public String getCreatorId() {
         return creatorId;
     }
 
-    public void setCreatorId(String creatorId){
+    public void setCreatorId(String creatorId) {
         this.creatorId = creatorId;
     }
 
@@ -145,35 +145,29 @@ public class Event implements Serializable, Parcelable {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.eventName + " " + this.eventDate;
     }
 
 
     //Public methods
-    public Boolean isValid(){
+    public Boolean isValid() {
 
-        if(this.getCreatorId().isEmpty())
-        {
+        if (this.getCreatorId().isEmpty()) {
             return false;
         }
 
-        if(this.getEventName().isEmpty())
-        {
+        if (this.getEventName().isEmpty()) {
             return false;
         }
 
-        if(this.getEventDate().isEmpty())
-        {
+        if (this.getEventDate().isEmpty()) {
             return false;
         }
 
-        if(this.getEventLocation().isEmpty())
-        {
+        if (this.getEventLocation().isEmpty()) {
             return false;
-        }
-
-        else
+        } else
             return true;
     }
 
