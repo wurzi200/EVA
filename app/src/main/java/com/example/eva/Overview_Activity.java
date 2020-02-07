@@ -54,7 +54,7 @@ public class Overview_Activity extends AppCompatActivity implements View.OnClick
         googleUserID = (String)getIntent().getSerializableExtra("Extra");
 
         _listView = (ListView)findViewById(R.id.event_list);
-        _stringArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, _eventStrings);
+        _stringArrayAdapter = new ArrayAdapter<String>(this, R.layout.layout_listitem,R.id.textview, _eventStrings);
         _listView.setAdapter(_stringArrayAdapter);
 
         _listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
