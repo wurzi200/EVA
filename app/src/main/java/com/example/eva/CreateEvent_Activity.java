@@ -101,8 +101,6 @@ public class CreateEvent_Activity extends AppCompatActivity implements View.OnCl
             _event.setEventLocation(location);
             _event.setEventDate(date);
             _event.setCreatorId(currentFirebaseUser);
-            //_event.InvitedUsers.add(currentUser);
-
 
             if(_event.isValid())
             {
