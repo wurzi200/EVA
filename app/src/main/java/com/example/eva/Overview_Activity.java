@@ -1,19 +1,23 @@
 package com.example.eva;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import java.util.List;
 
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -54,7 +58,45 @@ public class Overview_Activity extends AppCompatActivity implements View.OnClick
         googleUserID = (String)getIntent().getSerializableExtra("Extra");
 
         _listView = (ListView)findViewById(R.id.event_list);
-        _stringArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, _eventStrings);
+        _stringArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2,android.R.id.text1, _eventStrings){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent){
+
+                View view = super.getView(position, convertView, parent);
+
+                TextView listItem = (TextView)view.findViewById(android.R.id.text1);
+
+                List<InvitedUser> invatt = _events.get(position).InvitedAttendance;
+                String attendance = "";
+                int color_id = ContextCompat.getColor(view.getContext(), R.color.colorPrimaryDark);
+                for(InvitedUser inv : invatt)
+                {
+                    if(inv.getuId().equals(mAuth.getUid())){
+                        attendance = inv.getAttendance();
+                        //Log.w("attendance", attendance);
+                    }
+                }
+
+                switch(attendance) {
+                    case "going" :
+                        color_id = ContextCompat.getColor(view.getContext(), R.color.yes);
+                        break;
+                    case "not_going" :
+                        color_id = ContextCompat.getColor(view.getContext(), R.color.no);
+                        break;
+                    case "unsure" :
+                        color_id = ContextCompat.getColor(view.getContext(), R.color.maybe);
+                        break;
+                    default:
+                        color_id = ContextCompat.getColor(view.getContext(), R.color.maybe);
+                        break;
+                }
+
+                listItem.setBackgroundColor(color_id);
+
+                return view;
+            }
+        };
         _listView.setAdapter(_stringArrayAdapter);
 
         _listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -93,9 +135,9 @@ public class Overview_Activity extends AppCompatActivity implements View.OnClick
                 {
                     String stringEvent = eventSnapshot.getValue(Event.class).toString();
                     Event eventObject = eventSnapshot.getValue(Event.class);
+                    eventObject.refreshAttendanceList();
 
                     String currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
 
                     if(eventObject.getCreatorId().equals(currentFirebaseUser)) {
                         _events.add(eventObject);
@@ -105,22 +147,26 @@ public class Overview_Activity extends AppCompatActivity implements View.OnClick
                     }
                     else
                     {
-                        if(eventObject.InvitedIDs.isEmpty())
+                        //Testing
+                        /*
+                        if(eventObject.InvitedAttendance.isEmpty())
                             Log.w("idsEmpty", " true");
-                        else if(eventObject.InvitedIDs.size() != 0)
+                        else if(eventObject.InvitedAttendance.size() != 0)
                             Log.w("count", "greater zero");
-
-                        for(String inv : eventObject.InvitedIDs)
+                        */
+                        //Log.w("going into InvitedAttendance with IDs", eventObject.InvitedIDs.toString());
+                        for(InvitedUser inv : eventObject.InvitedAttendance)
                         {
-                            if(inv != null && inv.equals(mAuth.getUid())){
+                            //Log.w("going into InvitedAttendance", "after");
+                            if(inv != null && inv.getuId() != null && inv.getuId().equals(mAuth.getUid())){
 
+                                Log.w("uID", inv.getuId());
                                 //Log.w("invited", "true");
                                 _events.add(eventObject);
                                 _eventStrings.add(stringEvent);
                                 _stringArrayAdapter.notifyDataSetChanged();
                                 _listView.setAdapter(_stringArrayAdapter);
                             }
-
                         }
                     }
                 }

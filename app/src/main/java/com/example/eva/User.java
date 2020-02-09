@@ -14,7 +14,6 @@ public class User implements Serializable {
     //private core values
     @Exclude
     private String _uId;
-
     private String _uName;
     private String _uPhone;
     private String _uEmail;

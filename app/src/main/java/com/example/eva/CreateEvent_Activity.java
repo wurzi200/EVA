@@ -74,9 +74,7 @@ public class CreateEvent_Activity extends AppCompatActivity implements View.OnCl
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        User currentUser = new User(mAuth.getCurrentUser());
-        _event.InvitedUsers.add(currentUser);
+        _event.InvitedAttendance.add(new InvitedUser(mAuth.getCurrentUser().getUid(), "going"));
     }
 
     // [END on_start_check_user]
@@ -95,14 +93,10 @@ public class CreateEvent_Activity extends AppCompatActivity implements View.OnCl
             String date = editTextDate.getText().toString();
             String currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            User currentUser = new User(mAuth.getCurrentUser());
-
             _event.setEventName(name);
             _event.setEventLocation(location);
             _event.setEventDate(date);
             _event.setCreatorId(currentFirebaseUser);
-            //_event.InvitedUsers.add(currentUser);
-
 
             if(_event.isValid())
             {
