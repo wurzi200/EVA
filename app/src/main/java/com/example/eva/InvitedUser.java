@@ -60,6 +60,11 @@ public class InvitedUser implements Serializable {
         setAttendance("unsure");
     }
 
+    public InvitedUser(User user)
+    {
+        setuId(user.getuId());
+        setAttendance("unsure");
+    }
 
 
 

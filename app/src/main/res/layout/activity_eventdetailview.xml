@@ -33,7 +33,7 @@
         app:layout_constraintHorizontal_bias="0.437"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventName"
-        app:layout_constraintVertical_bias="0.493" />
+        app:layout_constraintVertical_bias="0.969" />
 
     <Button
         android:id="@+id/btnResetFields"
@@ -46,7 +46,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventDate"
-        app:layout_constraintVertical_bias="0.478" />
+        app:layout_constraintVertical_bias="0.953" />
 
     <EditText
         android:id="@+id/eventLocation"
@@ -74,7 +74,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/eventLocation"
         app:layout_constraintTop_toBottomOf="@+id/eventLocation"
-        app:layout_constraintVertical_bias="0.478" />
+        app:layout_constraintVertical_bias="0.953" />
 
     <EditText
         android:id="@+id/eventDate"
@@ -103,5 +103,16 @@
         app:layout_constraintStart_toStartOf="@+id/eventName"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.433" />
+
+    <ListView
+        android:id="@+id/eventuserlist"
+        android:layout_width="319dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="72dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSaveEvent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventName"
+        app:layout_constraintVertical_bias="0.225" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,79 +13,85 @@ public class User implements Serializable {
 
     //private core values
     @Exclude
-    private String _uId;
-    private String _uName;
-    private String _uPhone;
-    private String _uEmail;
+    private String uId;
+    private String uName;
+    private String uPhone;
+    private String uEmail;
 
 
     //Constructors
     public User(){
-       this._uId = "";
-       this. _uName = "";
-       this._uEmail = "";
-       this._uPhone = "";
+       this.uId = "";
+       this.uName = "";
+       this.uEmail = "";
+       this.uPhone = "";
     }
 
     public User(String id, String name, String email, String phone){
-        this._uId = id;
-        this. _uName = name;
-        this._uEmail = email;
-        this._uPhone = phone;
+        this.uId = id;
+        this.uName = name;
+        this.uEmail = email;
+        this.uPhone = phone;
     }
 
     public User(FirebaseUser fUser){
-        this._uId = fUser.getUid();
-        this. _uName = fUser.getDisplayName();
-        this._uPhone = fUser.getPhoneNumber();
-        this._uEmail = fUser.getEmail();
+        this.uId = fUser.getUid();
+        this.uName = fUser.getDisplayName();
+        this.uPhone = fUser.getPhoneNumber();
+        this.uEmail = fUser.getEmail();
     }
 
     public User(GoogleSignInAccount gUser){
-        this._uId = gUser.getId();
-        this._uName = gUser.getGivenName();
-        this._uEmail = gUser.getEmail();
-        this._uPhone = "";
+        this.uId = gUser.getId();
+        this.uName = gUser.getGivenName();
+        this.uEmail = gUser.getEmail();
+        this.uPhone = "";
     }
 
     //Setters
-    @Exclude
-    public void SetId(String uid){
-        this._uId = uid;
+    public void setuId(String uid)
+    {
+        this.uId = uid;
     }
-    public void SetName(String name){
-        this._uName = name;
+    public void setuName(String name)
+    {
+        this.uName = name;
     }
-    public void SetEmail(String email){
-        this._uEmail = email;
+    public void setuEmail(String email)
+    {
+        this.uEmail = email;
     }
-    public void SetPhone(String phone){
-        this._uPhone = phone;
+    public void setuPhone(String phone)
+    {
+        this.uPhone = phone;
     }
 
     //Getters
-    @Exclude
-    public String GetId(){
-        return _uId;
+    public String getuId()
+    {
+        return uId;
     }
-    public String GetName(){
-        return _uName;
+    public String getuName()
+    {
+        return uName;
     }
-    public String GetPhone(){
-        return _uPhone;
+    public String getuPhone()
+    {
+        return uPhone;
     }
-    public String GetEmail(){
-        return _uEmail;
+    public String getuEmail()
+    {
+        return uEmail;
     }
 
 
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        //result.put("_eventId", _eventId);
-        result.put("_uName", _uName);
-        result.put("_uPhone", _uPhone);
-        result.put("_uEmail", _uEmail);
+        result.put("uId", uId);
+        result.put("uName", uName);
+        result.put("uPhone", uPhone);
+        result.put("uEmail", uEmail);
 
         return result;
     }

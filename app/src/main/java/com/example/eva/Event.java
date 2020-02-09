@@ -174,11 +174,11 @@ public class Event implements Serializable, Parcelable {
     }
 
     public void refreshAttendanceList(){
-        Log.w("AttendanceList before refresh", InvitedAttendance.toString());
+        //Log.w("AttendanceList before refresh", InvitedAttendance.toString());
         InvitedAttendance = new ArrayList<>();
-        Log.w("going into refresh with IDs", InvitedIDs.toString());
+        //Log.w("going into refresh with IDs", InvitedIDs.toString());
         for(String inv:InvitedIDs){
-            Log.w("\t inv", inv);
+            //Log.w("\t inv", inv);
             InvitedAttendance.add(new InvitedUser(inv));
         }
     }

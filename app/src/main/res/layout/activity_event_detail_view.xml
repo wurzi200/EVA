@@ -138,4 +138,14 @@
         app:layout_constraintStart_toEndOf="@+id/btnUnsure"
         app:layout_constraintTop_toTopOf="@+id/btnUnsure"
         app:layout_constraintVertical_bias="0.0" />
+
+    <ListView
+        android:id="@+id/invitedusers"
+        android:layout_width="315dp"
+        android:layout_height="279dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnUnsure"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_detail_date"
+        app:layout_constraintVertical_bias="0.423" />
 </androidx.constraintlayout.widget.ConstraintLayout>
