@@ -151,12 +151,12 @@ public class GoogleSignInActivity extends AppCompatActivity implements View.OnCl
 
                         if (task.isSuccessful()) {
 
-                            // Sign in success, update UI with the signed-in user's information
+                            // Sign in success, update database with the signed-in user's information
 
                             Log.d(TAG, "signInWithCredential:success");
 
                             User user = new User(mAuth.getCurrentUser());
-                            String key = user.GetId();
+                            String key = user.getuId();
                             Map<String, Object> postValues = user.toMap();
                             Map<String, Object> childUpdates = new HashMap<>();
                             childUpdates.put("/users/" + key, postValues);

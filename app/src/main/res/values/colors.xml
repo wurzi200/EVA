@@ -5,5 +5,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="yes">#71F79F</color>
     <color name="no">#931621</color>
-    <color name="maybe">#37123C</color>
+    <color name="maybe">#ECD205</color>
+    <color name="uninvited">#A4666464</color>
 </resources>

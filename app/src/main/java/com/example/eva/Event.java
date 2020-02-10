@@ -2,6 +2,7 @@ package com.example.eva;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.google.firebase.database.Exclude;
 
@@ -22,7 +23,7 @@ public class Event implements Serializable, Parcelable {
     public List<String> InvitedIDs;
 
     @Exclude
-    public List<User> InvitedUsers;
+    public List<InvitedUser> InvitedAttendance;
 
 
     //Constructors
@@ -32,8 +33,11 @@ public class Event implements Serializable, Parcelable {
         this.setEventName("");
         this.setEventLocation("");
         this.setCreatorId("");
-        this.InvitedUsers = new ArrayList<User>();
         this.InvitedIDs = new ArrayList<String>();
+        this.InvitedAttendance = new ArrayList<>();
+        for(String inv:InvitedIDs){
+            InvitedAttendance.add(new InvitedUser(inv));
+        }
     }
 
     public Event(String eventDate, String eventLocation, String eventName) {
@@ -42,21 +46,20 @@ public class Event implements Serializable, Parcelable {
         this.eventName = eventName;
     }
 
-    public Event(String creatorId, String id, String name, String location, String date, List<User> invitedUsers) {
+    public Event(String creatorId, String id, String name, String location, String date, List<InvitedUser> invitedUsers) {
         this.setCreatorId(creatorId);
         this.setEventId(id);
         this.setEventDate(date);
         this.setEventName(name);
         this.setEventLocation(location);
 
+        InvitedIDs = new ArrayList<>();
         //should never be empty, as the current user is added
         if (!invitedUsers.isEmpty()) {
-            for (User user : invitedUsers) {
-                InvitedIDs.add(user.GetId());
+            for (InvitedUser user : invitedUsers) {
+                InvitedIDs.add(user.toString());
             }
         }
-
-        this.InvitedUsers = invitedUsers;
     }
 
     protected Event(Parcel in) {
@@ -66,6 +69,10 @@ public class Event implements Serializable, Parcelable {
         eventDate = in.readString();
         eventLocation = in.readString();
         InvitedIDs = in.createStringArrayList();
+        InvitedAttendance = new ArrayList<>();
+        for(String inv:InvitedIDs){
+            InvitedAttendance.add(new InvitedUser(inv));
+        }
     }
 
     public static final Creator<Event> CREATOR = new Creator<Event>() {
@@ -89,9 +96,9 @@ public class Event implements Serializable, Parcelable {
         result.put("eventDate", eventDate);
         result.put("eventLocation", eventLocation);
 
-        InvitedIDs.clear();
-        for (User user : InvitedUsers) {
-            InvitedIDs.add(user.GetId());
+        InvitedIDs = new ArrayList<>();
+        for (InvitedUser user : InvitedAttendance) {
+            InvitedIDs.add(user.toString());
         }
         result.put("InvitedIDs", InvitedIDs);
 
@@ -107,11 +114,6 @@ public class Event implements Serializable, Parcelable {
         this.eventId = id;
     }
 
-    /*
-    public String GetCreatorId(){
-        return _creatorId;
-    }
-     */
     public String getCreatorId() {
         return creatorId;
     }
@@ -169,6 +171,23 @@ public class Event implements Serializable, Parcelable {
             return false;
         } else
             return true;
+    }
+
+    public void refreshAttendanceList(){
+        //Log.w("AttendanceList before refresh", InvitedAttendance.toString());
+        InvitedAttendance = new ArrayList<>();
+        //Log.w("going into refresh with IDs", InvitedIDs.toString());
+        for(String inv:InvitedIDs){
+            //Log.w("\t inv", inv);
+            InvitedAttendance.add(new InvitedUser(inv));
+        }
+    }
+
+    public void refreshInvitedIDList(){
+        InvitedIDs = new ArrayList<>();
+        for(InvitedUser inv:InvitedAttendance){
+            InvitedIDs.add(inv.toString());
+        }
     }
 
     @Override
